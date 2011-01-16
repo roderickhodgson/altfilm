@@ -17,7 +17,9 @@
         }
 
         function find_venues(lat, lng) {
-            $.getJSON("/suggest/ajax/find_venues/"+lat+","+lng+"/", function(response) {
+            country = escape($('#country').val());
+            director = escape($('#director').val());
+            $.getJSON("/suggest/ajax/find_venues/"+lat+","+lng+"/"+country+"/"+director+"/", function(response) {
                     //alert(response);
                     $('#venues').html(response[0].fields['name']);
             });
@@ -29,9 +31,9 @@
 <body>
     Arthouse Suggest
     <p>
-    <form action="" onsubmit="get_address(); return false">
-    Where has been showing films by <input type="text" id="country" value="Gus Van Sant"> <br>
-    Where has been showing films from <input type="text" id="country" value="France"> <br>
+    <form action="" onsubmit="get_address(); return false;">
+        Where has been showing films by <input type="text" id="director" name="director" value="Gus Van Sant"> <br>
+    Where has been showing films from <input type="text" id="country" name="country"> <br>
     I live in <input type="text" name="address" id="address" />
     <input type="submit" value="Show me"/>
     </form>

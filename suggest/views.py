@@ -32,10 +32,34 @@ def json_lat_lng(request, addr):
     
     return HttpResponse(json.dumps(output))
 
-def json_find_venues(request, lat, lng, country):
-    venues = Venue.objects.all()
+def json_find_venues(request, lat, lng, country, director):
     venues_f = {}
     venues_final = []
+    if country != "":
+        try: country_obj = Country.objects.get(name__iexact=country)
+        except: country = ""
+
+    if director != "":
+        try: director_obj = Director.objects.get(name__iexact=director)
+        except: director = ""
+
+    if country == "" and director == "":
+        venues = Venue.objects.all()
+
+    if country != "":
+        allvenues = Venue.objects.all()
+        venues = []
+        for v in allvenues:
+            if len(v.film_set.filter(country=country_obj)) > 0:
+                venues.append(v)
+
+    if director != "":
+        allvenues = Venue.objects.all()
+        venues = []
+        for v in allvenues:
+            if len(v.film_set.filter(director=director_obj)) > 0:
+                venues.append(v)
+
 
     for v in venues:
          venues_f[v.id] = v.dist_to((lat, lng))
