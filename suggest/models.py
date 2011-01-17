@@ -16,8 +16,11 @@ class Venue(models.Model):
     lng = models.CharField(max_length=50)
 
     def dist_to(self, pos):
-        lat, lng = pos
-        return ((float(lat)-float(self.lat))**2 + (float(lng)-float(self.lng))**2)**0.5
+        if self.lat != "":
+            lat, lng = pos
+            return ((float(lat)-float(self.lat))**2 + (float(lng)-float(self.lng))**2)**0.5
+        else:
+            return 1000000
 
 class Film(models.Model):
     title = models.CharField(max_length=50)

@@ -10,7 +10,7 @@ from django.core import serializers
 
 
 def home(request):
-    t = loader.get_template('home.html')
+    t = loader.get_template('home2.html')
     c = Context({
         #'latest_poll_list': latest_poll_list,
     })
@@ -64,7 +64,7 @@ def json_find_venues(request, lat, lng, country, director):
     for v in venues:
          venues_f[v.id] = v.dist_to((lat, lng))
 
-    venues_f = sorted(venues_f.items(), key=itemgetter(1))
+    venues_f = sorted(venues_f.items(), key=itemgetter(1))[0:20]
     for f in venues_f:
         print f[0]
         venues_final.append(Venue.objects.get(pk=f[0]))
