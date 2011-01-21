@@ -13,7 +13,7 @@
         });
             
         function get_address() {
-            var foundaddress = false;
+            foundaddress = false;
             var uaddr = escape($('#address').val());
             $.getJSON("/suggest/ajax/lat_lng/"+uaddr+"/", function(response) {
                 $('#address').val(response.address);
