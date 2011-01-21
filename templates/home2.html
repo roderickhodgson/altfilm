@@ -3,8 +3,8 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
     <script type="text/javascript">
-        lat = 0;
-        lng = 0;
+        var lat = 0;
+        var lng = 0;
         function get_address() {
             var uaddr = escape($('#address').val());
             $.getJSON("/suggest/ajax/lat_lng/"+uaddr+"/", function(response) {
@@ -16,10 +16,10 @@
         }
 
         function find_venues() {
-            if ( $('#address').val() != "") {
+            if ( $('#address').val() != "" && lat != 0) {
                 country = escape($('#country').val());
                 director = escape($('#director').val());
-                $.getJSON("/suggest/ajax/find_venues/"+lat+","+lng+"/"+country+"/"+director+"/", function(response) {
+                $.getJSON("/suggest/ajax/find_venues/"+lat+","+lng+"/", function(response) {
                         //alert(response);
                         $('#venues').html("");
                         for (var i=0; i<response.length; i++) {
@@ -78,7 +78,7 @@
 <body>
 <div id="container">
     <div id="header">
-    <img src="http://i.imgur.com/h7PWo.png" alt="alt movie" style="margin-left:30px" />
+    <img src="http://altfilm.co.uk:81/images/logo.png" alt="alt movie" style="margin-left:30px" />
  
 </div>
      
@@ -86,10 +86,10 @@
     <form  onsubmit="find_venues(); return false">
     Find venues that have shown unusual films around <input type="text" name="address" id="address" placeholder="Your location" onchange="get_address();" />
 
-    <p class="options">
+    <!-- <p class="options">
     Limit to venues that have played films from <input type="text" placeholder="a country" id="country" name="country" /><br />
     or by <input type="text" placeholder="some director" name="director" id="director" />
-
+-->
     <p><input type="submit" value="Show me" /></p>
 </form>
 <ul id="venues">

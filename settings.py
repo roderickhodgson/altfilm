@@ -1,6 +1,6 @@
 # Django settings for ukfcsuggest project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -12,7 +12,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'moviedata.db',                      # Or path to database file if using sqlite3.
+        'NAME': '/home/roderick/sites/ukfcsuggest/moviedata.db',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -78,7 +78,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'ukfcsuggest.urls'
 
 TEMPLATE_DIRS = (
-        "/Users/roderick/Code/CHD/UKFC/ukfcsuggest/templates/"
+        "/home/roderick/sites/ukfcsuggest/templates/"
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.

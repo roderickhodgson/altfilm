@@ -32,6 +32,9 @@ def json_lat_lng(request, addr):
     
     return HttpResponse(json.dumps(output))
 
+def json_find_simple(request, lat, lng):
+    return json_find_venues(request, lat, lng, '', '')
+
 def json_find_venues(request, lat, lng, country, director):
     venues_f = {}
     venues_final = []
@@ -66,7 +69,7 @@ def json_find_venues(request, lat, lng, country, director):
 
     venues_f = sorted(venues_f.items(), key=itemgetter(1))[0:20]
     for f in venues_f:
-        print f[0]
+        #print f[0]
         venues_final.append(Venue.objects.get(pk=f[0]))
 
     venues_json = serializers.serialize("json", venues_final)
