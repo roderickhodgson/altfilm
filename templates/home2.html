@@ -15,7 +15,13 @@
         function get_address() {
             foundaddress = false;
             var uaddr = escape($('#address').val());
-            $.ajax({url:"/suggest/ajax/lat_lng/"+uaddr+"/", dataType: 'json', success: 
+            $.ajax({
+		url:"/suggest/ajax/lat_lng/"+uaddr+"/", 
+		dataType: "json",
+		error: function(request, stat, err) {
+			//do nothing for now
+		}, 
+		success: 
                     function(response) {
                 $('#address').val(response.address);
                 lat = response.lat;
