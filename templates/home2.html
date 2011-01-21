@@ -6,6 +6,12 @@
         var lat = 0;
         var lng = 0;
         var foundaddress = false;
+        $(document).ready(function() {
+            lat = 0;
+            lng = 0;
+            foundaddress = false;
+        });
+            
         function get_address() {
             var foundaddress = false;
             var uaddr = escape($('#address').val());
