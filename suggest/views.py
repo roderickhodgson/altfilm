@@ -30,7 +30,7 @@ def json_lat_lng(request, addr):
     output['lat'] = data['results'][0]['geometry']['location']['lat']
     output['lng'] = data['results'][0]['geometry']['location']['lng']
     
-    return HttpResponse(json.dumps(output), mimetype='application/javascript')
+    return HttpResponse(json.dumps(output), mimetype='application/json')
 
 def json_find_simple(request, lat, lng):
     return json_find_venues(request, lat, lng, '', '')
@@ -74,5 +74,5 @@ def json_find_venues(request, lat, lng, country, director):
 
     venues_json = serializers.serialize("json", venues_final)
                 
-    return HttpResponse(venues_json, mimetype='application/javascript'))
+    return HttpResponse(venues_json, mimetype='application/json')
 
