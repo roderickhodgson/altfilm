@@ -5,18 +5,26 @@
     <script type="text/javascript">
         var lat = 0;
         var lng = 0;
+        var foundaddress = false;
         function get_address() {
+            var foundaddress = false;
             var uaddr = escape($('#address').val());
             $.getJSON("/suggest/ajax/lat_lng/"+uaddr+"/", function(response) {
                 $('#address').val(response.address);
                 lat = response.lat;
                 lng = response.lng;
+                foundaddress = true;
             });
-            return true;
         }
 
         function find_venues() {
-            if ( $('#address').val() != "" && lat != 0) {
+            if (foundaddress == false) {
+                get_address();
+            }
+            while (foundaddress == false) {
+                //wait for it to find the address
+            }
+            if ( $('#address').val()) {
                 country = escape($('#country').val());
                 director = escape($('#director').val());
                 $.getJSON("/suggest/ajax/find_venues/"+lat+","+lng+"/", function(response) {
@@ -27,10 +35,6 @@
                         }
 
                 });
-                return true;
-            }
-            else {
-                return false;
             }
         }
     </script>
