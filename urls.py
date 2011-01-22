@@ -7,9 +7,9 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('',
     # Example:
     (r'^$', 'suggest.views.home'),
-    (r'^suggest/ajax/lat_lng/(?P<addr>[^/]*)/$', 'suggest.views.json_lat_lng'),
-    (r'^suggest/ajax/find_venues/(?P<lat>[^,]*),(?P<lng>[^,/]*)/$', 'suggest.views.json_find_simple'),
-    (r'^suggest/ajax/find_venues/(?P<lat>[^,]*),(?P<lng>[^,/]*)/(?P<country>[a-zA-Z ]*)/(?P<director>[a-zA-Z ]*)/$', 'suggest.views.json_find_venues'),
+    (r'^ajax/lat_lng/(?P<addr>[^/]*)/$', 'suggest.views.json_lat_lng'),
+    (r'^ajax/find_venues/(?P<lat>[^,]*),(?P<lng>[^,/]*)/$', 'suggest.views.json_find_simple'),
+    (r'^ajax/find_venues/(?P<lat>[^,]*),(?P<lng>[^,/]*)/(?P<country>[a-zA-Z ]*)/(?P<director>[a-zA-Z ]*)/$', 'suggest.views.json_find_venues'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
