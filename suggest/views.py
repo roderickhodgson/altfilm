@@ -7,6 +7,7 @@ import json
 from suggest.models import *
 from operator import itemgetter
 from django.core import serializers
+from settings import LOGFILE
 
 def json_lat_lng(request, addr):
     args = urlencode({'address': addr, 'sensor': 'false', 'region': 'uk'})
@@ -18,7 +19,7 @@ def json_lat_lng(request, addr):
     output['lat'] = data['results'][0]['geometry']['location']['lat']
     output['lng'] = data['results'][0]['geometry']['location']['lng']
     try:
-        f = open('/home/roderick/sites/ukfcsuggest/searchlog.txt', 'a')
+        f = open(LOGFILE, 'a')
         f.write("\n"+addr)
         f.close() 
     except:
