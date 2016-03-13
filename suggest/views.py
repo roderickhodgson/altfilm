@@ -1,6 +1,6 @@
 # Create your views here
 #
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.template import Context, loader
 from urllib import urlencode, urlopen
 import json
@@ -16,6 +16,12 @@ def home(request):
     })
     return HttpResponse(t.render(c))
 
+def home_old(request):
+    t = loader.get_template('home2.html')
+    c = Context({
+        #'latest_poll_list': latest_poll_list,
+    })
+    return HttpResponse(t.render(c))
 
 def mysuggestions(request):
     return HttpResponse("Test")
@@ -26,9 +32,12 @@ def json_lat_lng(request, addr):
 
     data = json.load(urlopen(api_url))
     output = {}
-    output['address'] = data['results'][0]['formatted_address']
-    output['lat'] = data['results'][0]['geometry']['location']['lat']
-    output['lng'] = data['results'][0]['geometry']['location']['lng']
+    try:
+        output['address'] = data['results'][0]['formatted_address']
+        output['lat'] = data['results'][0]['geometry']['location']['lat']
+        output['lng'] = data['results'][0]['geometry']['location']['lng']
+    except:
+        return HttpResponseNotFound()
 
     return HttpResponse(json.dumps(output), mimetype='text/javascript')
 
