@@ -1,0 +1,5 @@
+This is the code for the site altfilm.co.uk. It as a project as part of the Culture Hack Day 2011.
+
+This will not run out of the box. You'll need django, and to populate the database with something.
+
+You'll also need your own settings.py file.
