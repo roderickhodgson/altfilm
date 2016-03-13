@@ -1,76 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var axios = require('axios');
 
-var SearchTool = React.createClass({
-  getInitialState: function() {
-    return {
-      address: '',
-      lat: null,
-      lng: null,
-      venues: []
-    };
-  },
-  onAddressChange: function(e) {
-    this.setState({
-      address: e.target.value
-    });
-  },
-  getFullAddress: function() {
-    return axios.get('/suggest/ajax/lat_lng/' + this.state.address)
-      .then(function (response) {
-        this.setState({
-          address: response.data.address,
-          lat: response.data.lat,
-          lng: response.data.lng
-        });
-      }.bind(this))
-      .catch(function (response) {
-        console.log(response);
-      });
-  },
-  getVenues: function() {
-    return axios.get('/suggest/ajax/find_venues/' + this.state.lat + ',' + this.state.lng + '/')
-      .then(function (response) {
-        this.setState({venues: response.data});
-      }.bind(this))
-      .catch(function (response) {
-        console.log(response);
-      });
-  },
-  onSubmitAddress: function(e) {
-    e.preventDefault();
-    this.getFullAddress()
-      .then(this.getVenues);
-  },
-  render: function() {
-    return (
-      <div>
-        <form>
-          Find venues that have shown unusual films around
-          <input type="text" value={this.state.address} placeholder="Your location" onChange={this.onAddressChange} />
-          <p>
-            <button type="submit" onClick={this.onSubmitAddress}>Show Me</button>
-          </p>
-        </form>
-        <Results data={this.state.venues} />
-      </div>
-    );
-  }
-});
+var SearchTool = require('./components/SearchTool')
 
-function Results(props) {
-  return (
-    <ul>
-      {props.data.map(function(item) {
-        return <Venue key={item.pk} name={item.fields.name} />
-      })}
-    </ul>
-  );
-}
 
-function Venue(props) {
-  return (<li>{props.name}</li>);
-}
 
 ReactDOM.render(<SearchTool />, document.getElementById('main'));
