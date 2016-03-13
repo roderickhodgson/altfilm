@@ -1,3 +1,4 @@
+import debugsettings as settings
 from django.conf.urls.defaults import *
 
 # Uncomment the next two lines to enable the admin:
@@ -17,3 +18,12 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # (r'^admin/', include(admin.site.urls)),
 )
+
+if settings.DEBUG:
+    # static files (images, css, javascript, etc.)
+    urlpatterns += patterns('',
+        (r'^js/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': settings.JS_ROOT}))
+    urlpatterns += patterns('',
+        (r'^images/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': settings.IMAGES_ROOT}))

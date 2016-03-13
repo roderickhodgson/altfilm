@@ -10,12 +10,12 @@ from django.core import serializers
 
 
 def home(request):
-    t = loader.get_template('home2.html')
+    t = loader.get_template('home3.html')
     c = Context({
         #'latest_poll_list': latest_poll_list,
     })
     return HttpResponse(t.render(c))
-    
+
 
 def mysuggestions(request):
     return HttpResponse("Test")
@@ -29,7 +29,7 @@ def json_lat_lng(request, addr):
     output['address'] = data['results'][0]['formatted_address']
     output['lat'] = data['results'][0]['geometry']['location']['lat']
     output['lng'] = data['results'][0]['geometry']['location']['lng']
-    
+
     return HttpResponse(json.dumps(output), mimetype='text/javascript')
 
 def json_find_simple(request, lat, lng):
@@ -73,6 +73,5 @@ def json_find_venues(request, lat, lng, country, director):
         venues_final.append(Venue.objects.get(pk=f[0]))
 
     venues_json = serializers.serialize("json", venues_final)
-                
-    return HttpResponse(venues_json, mimetype='text/javascript')
 
+    return HttpResponse(venues_json, mimetype='text/javascript')
