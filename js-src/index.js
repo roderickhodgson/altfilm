@@ -7,7 +7,8 @@ var SearchTool = React.createClass({
     return {
       address: '',
       lat: null,
-      lng: null
+      lng: null,
+      venues: []
     };
   },
   onAddressChange: function(e) {
@@ -15,9 +16,8 @@ var SearchTool = React.createClass({
       address: e.target.value
     });
   },
-  onSubmitAddress: function(e) {
-    e.preventDefault();
-    axios.get('/suggest/ajax/lat_lng/' + this.state.address)
+  getFullAddress: function() {
+    return axios.get('/suggest/ajax/lat_lng/' + this.state.address)
       .then(function (response) {
         this.setState({
           address: response.data.address,
@@ -28,6 +28,21 @@ var SearchTool = React.createClass({
       .catch(function (response) {
         console.log(response);
       });
+  },
+  getVenues: function() {
+    return axios.get('/suggest/ajax/find_venues/' + this.state.lat + ',' + this.state.lng + '/')
+      .then(function (response) {
+        console.log("Got venues", response);
+        this.setState({venues: response.data});
+      }.bind(this))
+      .catch(function (response) {
+        console.log(response);
+      });
+  },
+  onSubmitAddress: function(e) {
+    e.preventDefault();
+    this.getFullAddress()
+      .then(this.getVenues);
   },
   render: function() {
     return (
