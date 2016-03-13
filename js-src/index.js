@@ -54,15 +54,19 @@ var SearchTool = React.createClass({
             <button type="submit" onClick={this.onSubmitAddress}>Show Me</button>
           </p>
         </form>
-        <Results />
+        <Results data={this.state.venues} />
       </div>
     );
   }
 });
 
 function Results(props) {
+  var list = props.data.reduce(function(accumultor, item) {
+    accumultor += <li>{item.name}</li>;
+  }, "");
   return (
     <ul>
+      {list}
     </ul>
   );
 }
