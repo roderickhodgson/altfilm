@@ -32,7 +32,6 @@ var SearchTool = React.createClass({
   getVenues: function() {
     return axios.get('/suggest/ajax/find_venues/' + this.state.lat + ',' + this.state.lng + '/')
       .then(function (response) {
-        console.log("Got venues", response);
         this.setState({venues: response.data});
       }.bind(this))
       .catch(function (response) {
@@ -61,14 +60,17 @@ var SearchTool = React.createClass({
 });
 
 function Results(props) {
-  var list = props.data.reduce(function(accumultor, item) {
-    accumultor += <li>{item.name}</li>;
-  }, "");
   return (
     <ul>
-      {list}
+      {props.data.map(function(item) {
+        return <Venue key={item.pk} name={item.fields.name} />
+      })}
     </ul>
   );
+}
+
+function Venue(props) {
+  return (<li>{props.name}</li>);
 }
 
 ReactDOM.render(<SearchTool />, document.getElementById('main'));
